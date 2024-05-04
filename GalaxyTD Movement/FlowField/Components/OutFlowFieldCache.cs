@@ -2,36 +2,33 @@
 using Unity.Entities;
 using Unity.Mathematics;
 
-namespace ECSTest.Components
+public struct OutFlowFieldCache : IComponentData, ICustomManaged<OutFlowFieldCache>
 {
-    public struct OutFlowFieldCache : IComponentData, ICustomManaged<OutFlowFieldCache>
+    public NativeArray<float2> Directions;
+    public NativeArray<bool> IsReadyToCopy;
+
+    public OutFlowFieldCache(int length)
     {
-        public NativeArray<float2> Directions;
-        public NativeArray<bool> IsReadyToCopy;
+        Directions = new NativeArray<float2>(length, Allocator.Persistent);
+        IsReadyToCopy = new NativeArray<bool>(1, Allocator.Persistent);
+    }
 
-        public OutFlowFieldCache(int length)
-        {
-            Directions = new NativeArray<float2>(length, Allocator.Persistent);
-            IsReadyToCopy = new NativeArray<bool>(1, Allocator.Persistent);
-        }
+    public void Load(OutFlowFieldCache from)
+    {
+        Directions.CopyFrom(from.Directions);
+    }
 
-        public void Load(OutFlowFieldCache from)
+    public OutFlowFieldCache Clone()
+    {
+        return new OutFlowFieldCache()
         {
-            Directions.CopyFrom(from.Directions);
-        }
+            Directions = new NativeArray<float2>(Directions, Allocator.Persistent)
+        };
+    }
 
-        public OutFlowFieldCache Clone()
-        {
-            return new OutFlowFieldCache()
-            {
-                Directions = new NativeArray<float2>(Directions, Allocator.Persistent)
-            };
-        }
-
-        public void Dispose()
-        {
-            Directions.Dispose();
-            IsReadyToCopy.Dispose();
-        }
+    public void Dispose()
+    {
+        Directions.Dispose();
+        IsReadyToCopy.Dispose();
     }
 }

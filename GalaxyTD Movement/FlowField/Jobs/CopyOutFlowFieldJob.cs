@@ -2,20 +2,17 @@
 using Unity.Burst;
 using Unity.Jobs;
 
-namespace ECSTest.Systems
+[BurstCompile]
+public struct CopyOutFlowFieldJob : IJob
 {
-    [BurstCompile]
-    public struct CopyOutFlowFieldJob : IJob
+    public OutFlowField OutFlowField;
+    public OutFlowFieldCache OutCache;
+    
+    public void Execute()
     {
-        public OutFlowField OutFlowField;
-        public OutFlowFieldCache OutCache;
+        if (!OutCache.IsReadyToCopy[0]) return;
         
-        public void Execute()
-        {
-            if (!OutCache.IsReadyToCopy[0]) return;
-            
-            OutFlowField.Directions.CopyFrom(OutCache.Directions);
-            OutCache.IsReadyToCopy[0] = false;
-        }
+        OutFlowField.Directions.CopyFrom(OutCache.Directions);
+        OutCache.IsReadyToCopy[0] = false;
     }
 }
