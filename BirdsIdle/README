@@ -1,0 +1,37 @@
+The basic idea is that there are trees with branches. Several birds can perch on each branch, earning in-game currency. Decorations can also be on branches, providing bonuses.
+
+I've added DragNDropController and ItemPositionController to show how they move birds and decorations.
+
+World Controller:
+ - Initializes game state, including user settings, In-App Purchase (IAP) services, and player data.
+ - Controls game elements via UIManager and TreeController.
+ - Handles pause events for saving player states and calculating offline income.
+ - Performs game state updates.
+
+TreeController:
+ - Initializes and tracks 'Tree' state.
+ - Manages branch-related game elements and their unlock states.
+ - Responds to game events like planting a bird or decor, and player level up.
+ - Handles user interactions with branches and updates tree structure visually.
+
+BranchController:
+ - Manages the branch element and its interactive containers.
+ - Maintains the lock state of the branch and handles toggle events.
+ - Initializes and updates the branch state.
+
+BirdController:
+ - Manages the bird object including its visual presentation and interactions.
+ - Responds to user interactions and bird-related events.
+ - Handles bird incubation process and state.
+ - Manages bird lifespan events.
+
+DecorController:
+ - Manages the decor object and its visual aspects.
+
+DragNDropController:
+ - Handles drag and drop actions for birds and decors.
+ - Controls position and movement of dragged items.
+ - Incorporates mechanisms for controlling item dragging outside game borders.
+
+ItemPositionController:
+ - Manages different states of item positioning and interaction.
