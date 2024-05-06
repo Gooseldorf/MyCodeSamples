@@ -1,0 +1,7 @@
+The main goal is to constantly update the NativeArray<float2> directions in the InFlowField and OutFlowField components. The system responsible for unit movement takes data from these arrays and uses it as the basis for calculating movement.
+
+The BaseFlowField component stores an array of cells with their costs.
+
+The DiscomfortSystem directly affects the cells of the BaseFlowField by increasing their cost based on the number of units in that cell. This allows the movement grid to be reconfigured to avoid areas of unit accumulation.
+
+Depending on the size of the map, the calculation of the In and Out FlowField can become quite expensive and time consuming. To ensure stable access to information for the motion system, the process of building the FlowField is divided into 2 systems. The first handles the calculations directly, while the second updates the FlowField components as they are completed.
