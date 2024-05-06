@@ -1,0 +1,11 @@
+MovingSystem: 
+ - Handles creep movement based.
+ - Uses flow fields to dictate creep movement.
+ - Performs teleportation.
+ - Ensures collision avoidance and evasion among creeps.
+ - Influences creep movement using forces like collision avoidance, evasion, separation, alignment, and cohesion.
+ - Performs checks for creep position relative to the grid or walls.
+ - Utilizes Unity's DOTS and Burst compiler for optimized parallel processing.
+
+TeleportationMovingSystem:
+ - Handles teleportation.
